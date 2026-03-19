@@ -1,10 +1,14 @@
 "use client";
 import { useEffect, useRef } from "react";
-import createGlobe from "cobe";
+import createGlobe, { COBEOptions } from "cobe";
 import styles from "./Globe.module.css";
 
 interface GlobeProps {
   className?: string;
+}
+
+interface ExtendedCOBEOptions extends COBEOptions {
+  onRender?: (state: any) => void;
 }
 
 export default function Globe({ className }: GlobeProps) {
@@ -59,7 +63,7 @@ export default function Globe({ className }: GlobeProps) {
         state.width = width * 2;
         state.height = width * 2;
       },
-    });
+    } as ExtendedCOBEOptions);
 
     return () => {
       globe.destroy();
