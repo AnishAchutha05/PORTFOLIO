@@ -1,0 +1,48 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas {
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0.92;
+}
+
+.label {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(15, 14, 22, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(167, 139, 250, 0.9);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.labelDot {
+  width: 6px;
+  height: 6px;
+  background: #a78bfa;
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(167, 139, 250, 0.8);
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
