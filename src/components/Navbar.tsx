@@ -34,10 +34,7 @@ export default function Navbar() {
         transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
         <div className={styles.inner}>
-          <Link href="/" className={styles.logo}>
-            <span className={styles.logoMark}>A</span>
-            <span className={styles.logoText}>Anish</span>
-          </Link>
+
 
           <ul className={styles.links}>
             {navLinks.map((link) => (

@@ -1,184 +1,248 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { HiArrowUpRight } from "react-icons/hi2";
-import {
-  SiGooglecloud, SiDocker, SiKubernetes, SiPython, SiPostgresql, SiSpringboot,
-  SiLangchain, SiFastapi, SiLinux, SiOpenjdk
-} from "react-icons/si";
-import { OrbitingCircles } from "@/components/OrbitingCircles";
-import { NumberTicker } from "@/components/NumberTicker";
-import { SpotlightCard } from "@/components/SpotlightCard";
-import { DotPattern } from "@/components/DotPattern";
-import Globe from "@/components/Globe";
 import styles from "./page.module.css";
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } },
+};
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-};
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] } },
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
 export default function Home() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const waveY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const waveScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+
   return (
     <section className={styles.page}>
-      <div className={styles.container}>
-        {/* ── Badge ── */}
+
+      {/* ══════════════════════════════════════
+          HERO — Hokusai Wave Full Screen
+      ══════════════════════════════════════ */}
+      <div ref={heroRef} className={styles.heroWrap}>
+
+        {/* Parallax wave background */}
         <motion.div
-          className={styles.badge}
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          className={styles.waveBg}
+          style={{ y: waveY, scale: waveScale }}
         >
-          <span className={styles.badgeDot} />
-          Open to Internships &amp; Collaborations
+          <Image
+            src="/jp-wave.png"
+            alt="The Great Wave off Kanagawa"
+            fill
+            className={styles.waveImg}
+            priority
+          />
         </motion.div>
 
-        {/* ── Hero headline ── */}
+        {/* Dark gradient overlay */}
+        <div className={styles.waveOverlay} />
+
+        {/* Ink texture overlay */}
+        <div className={styles.inkOverlay} />
+
+        {/* Hero content */}
         <motion.div
-          className={styles.heroText}
-          variants={stagger}
-          initial="hidden"
-          animate="show"
+          className={styles.heroContent}
+          style={{ opacity: heroOpacity, y: heroY }}
         >
-          <motion.h1 className={styles.h1} variants={fadeUp}>
-            <span className={styles.h1Line1}>Architecting</span>
-            <span className={styles.h1Line2}>
-              <span className={styles.h1Italic}>Agentic AI</span>
-              {" "}&amp; Cloud
-            </span>
-            <span className={styles.h1Line3}>Systems.</span>
-          </motion.h1>
+          {/* Status badge */}
+          <motion.div
+            className={styles.badge}
+            initial={{ opacity: 0, y: -18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className={styles.badgeDot} />
+            Research Intern @ IIT Guwahati &nbsp;·&nbsp; AI Systems Intern @ DocTrue
+          </motion.div>
 
-          <motion.p className={styles.heroBio} variants={fadeUp}>
-            I&#39;m <strong>Anish Achutha</strong> — a 20-year-old VTU engineering student.
-            I build production-grade <strong>RAG pipelines</strong>, <strong>autonomous AI agents</strong>,
-            and enterprise backend systems using <strong>Java Spring Boot</strong>, <strong>LangChain</strong>,
-            and <strong>GCP</strong> microservices.
-          </motion.p>
+          {/* Japanese character watermark */}
+          <motion.div
+            className={styles.jpWatermark}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.4, delay: 0.3 }}
+          >
+            波
+          </motion.div>
 
-          <motion.div className={styles.heroActions} variants={fadeUp}>
-            <Link href="/projects" className="btn-violet">
-              View My Work <HiArrowUpRight />
-            </Link>
-            <a href="/resume.pdf" download className="btn-ghost">
-              Resume ↓
-            </a>
+          <motion.div variants={stagger} initial="hidden" animate="show">
+            <motion.p className={styles.heroEyebrow} variants={fadeUp}>
+              Anish Achutha — AI Systems Engineer
+            </motion.p>
+            <motion.h1 className={styles.h1} variants={fadeUp}>
+              Building systems<br />
+              <em className={styles.h1Em}>that think,</em><br />
+              scale &amp; survive.
+            </motion.h1>
+            <motion.p className={styles.heroBio} variants={fadeUp}>
+              2nd-year CS undergrad at JSSATE Bangalore (VTU · CGPA 8.7). I design
+              multi-agent AI systems, agentic pipelines, and scalable backends
+              where LLMs operate as autonomous agents backed by FastAPI, vector stores, and GCP.
+            </motion.p>
+            <motion.div className={styles.heroActions} variants={fadeUp}>
+              <Link href="/projects" className="btn-violet">
+                View My Work <HiArrowUpRight />
+              </Link>
+              <a href="/resume.pdf" download className="btn-ghost">
+                Resume ↓
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* Scroll cue */}
+          <motion.div
+            className={styles.scrollCue}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.4, duration: 0.8 }}
+          >
+            <div className={styles.scrollLine} />
+            <span className={styles.scrollLabel}>Scroll</span>
           </motion.div>
         </motion.div>
+      </div>
 
-        {/* ── BENTO GRID ── */}
-        <motion.div
-          className={styles.bento}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          {/* Card 1: Profile photo */}
-          <SpotlightCard className={`${styles.bentoCard} ${styles.cardPhoto}`}>
-            <div className={styles.photoTag}>
-              <span className={styles.photoTagDot} />
-              Anish Achutha
-            </div>
-            <Image src="/profile.jpg" alt="Anish Achutha" fill className={styles.photo} priority />
-            <div className={styles.photoOverlay}>
-              <div className={styles.photoLinks}>
-                <a href="https://github.com/AnishAchutha05" target="_blank" rel="noopener noreferrer" className={styles.photoSocial}><FaGithub /></a>
-                <a href="https://www.linkedin.com/in/anishachutha/" target="_blank" rel="noopener noreferrer" className={styles.photoSocial}><FaLinkedin /></a>
-                <a href="https://www.instagram.com/anish_achutha_/" target="_blank" rel="noopener noreferrer" className={styles.photoSocial}><FaInstagram /></a>
+      {/* ══════════════════════════════════════
+          FEATURE CARDS — editorial 3-col
+      ══════════════════════════════════════ */}
+      <div className={styles.featureSection}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.featureGrid}
+            initial={{ opacity: 0, y: 44 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* ── Card A: Profile + roles ── */}
+            <div className={styles.fCard}>
+              <div className={styles.fCardPhotoBg}>
+                <Image src="/profile.jpg" alt="Anish Achutha" fill className={styles.fCardPhoto} />
+                <div className={styles.fCardPhotoGrad} />
+              </div>
+              <div className={styles.fCardBody}>
+                <div className={styles.fCardTop}>
+                  <span className={styles.fCardTag}>
+                    <span className={styles.fCardDot} />
+                    Open to Work
+                  </span>
+                </div>
+                <div className={styles.fCardBottom}>
+                  <h3 className={styles.fCardName}>Anish Achutha</h3>
+                  <p className={styles.fCardRole}>AI Systems Engineer</p>
+                  <div className={styles.fCardPills}>
+                    <span className={styles.fCardPill}>
+                      <span className={styles.fPillDot} />
+                      IIT Guwahati
+                    </span>
+                    <span className={styles.fCardPill}>
+                      <span className={styles.fPillDot} />
+                      DocTrue
+                    </span>
+                    <span className={styles.fCardPill}>🎓 JSSATE · VTU · 8.7</span>
+                  </div>
+                  <div className={styles.fCardLinks}>
+                    <a href="https://github.com/AnishAchutha05" target="_blank" rel="noopener noreferrer" className={styles.fCardLink}><FaGithub /></a>
+                    <a href="https://www.linkedin.com/in/anishachutha/" target="_blank" rel="noopener noreferrer" className={styles.fCardLink}><FaLinkedin /></a>
+                    <a href="https://www.instagram.com/anish_achutha_/" target="_blank" rel="noopener noreferrer" className={styles.fCardLink}><FaInstagram /></a>
+                  </div>
+                </div>
               </div>
             </div>
-          </SpotlightCard>
 
-          {/* Card 2: Role */}
-          <SpotlightCard className={`${styles.bentoCard} ${styles.cardRole}`} spotlightColor="rgba(124,58,237,0.15)">
-            <span className={styles.cardEyebrow}>Specialization</span>
-            <h2 className={styles.roleTitle}>
-              AI Systems<br />&amp; Backend
-            </h2>
-            <div className={styles.roleTags}>
-              {["RAG / LLMs", "LangChain", "Spring Boot", "GCP", "Microservices"].map(t => (
-                <span key={t} className={styles.roleTag}>{t}</span>
-              ))}
-            </div>
-          </SpotlightCard>
-
-          {/* Card 3: OrbitingCircles tech stack */}
-          <SpotlightCard className={`${styles.bentoCard} ${styles.cardOrbit}`}>
-            <span className={styles.cardEyebrow}>Tech Arsenal</span>
-            <div className={styles.orbitWrap}>
-              <div className={styles.orbitCenter}>
-                <span className={styles.orbitCenterIcon}>AA</span>
+            {/* ── Card B: AI Systems — coder bg ── */}
+            <div className={styles.fCard}>
+              <div className={styles.fCardImgBg}>
+                <Image src="/jp-coder.png" alt="" fill className={styles.fCardImg} />
+                <div className={styles.fCardImgGrad} />
               </div>
-              <OrbitingCircles duration={20} radius={72} iconSize={28}>
-                <SiPython color="#3776ab" />
-                <SiOpenjdk color="#f89820" />
-                <SiSpringboot color="#6db33f" />
-              </OrbitingCircles>
-              <OrbitingCircles duration={30} radius={118} iconSize={24} reverse>
-                <SiGooglecloud color="#4285f4" />
-                <SiDocker color="#2496ed" />
-                <SiKubernetes color="#326ce5" />
-                <SiPostgresql color="#336791" />
-                <SiLangchain color="#a78bfa" />
-                <SiFastapi color="#009688" />
-              </OrbitingCircles>
+              <div className={styles.fCardBody}>
+                <div className={styles.fCardTop}>
+                  <span className={styles.fCardEyebrow}>01 — What I build</span>
+                </div>
+                <div className={styles.fCardBottom}>
+                  <h3 className={styles.fCardTitle}>AI Systems<br />&amp; Backend</h3>
+                  <ul className={styles.fCardList}>
+                    <li>Multi-agent pipelines with LangChain &amp; LangGraph</li>
+                    <li>MCP Servers for autonomous research</li>
+                    <li>FastAPI backends + GCP cloud infrastructure</li>
+                    <li>RAG systems &amp; vector store integrations</li>
+                  </ul>
+                  <div className={styles.fCardTechRow}>
+                    {["Python", "LangChain", "FastAPI", "GCP", "Docker"].map(t => (
+                      <span key={t} className={styles.fTechChip}>{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
-          </SpotlightCard>
 
-          {/* Card 4: Globe / Location */}
-          <SpotlightCard className={`${styles.bentoCard} ${styles.cardGlobe}`} spotlightColor="rgba(124,58,237,0.08)">
-            <DotPattern className={styles.dotBg} />
-            <div className={styles.globeContent}>
-              <span className={styles.cardEyebrow}>Based in</span>
-              <p className={styles.locationCity}>Bangalore</p>
-              <p className={styles.locationCountry}>India 🇮🇳 · VTU</p>
+            {/* ── Card C: Research — blackhole bg ── */}
+            <div className={styles.fCard}>
+              <div className={styles.fCardImgBg}>
+                <Image src="/jp-blackhole.png" alt="" fill className={styles.fCardImg} />
+                <div className={styles.fCardImgGrad} />
+              </div>
+              <div className={styles.fCardBody}>
+                <div className={styles.fCardTop}>
+                  <span className={styles.fCardEyebrow}>02 — Research</span>
+                </div>
+                <div className={styles.fCardBottom}>
+                  <h3 className={styles.fCardTitle}>Research<br />&amp; Projects</h3>
+                  <ul className={styles.fCardList}>
+                    <li><strong>SWARM</strong> — self-organising multi-agent cognitive system</li>
+                    <li><strong>ARIA</strong> — autonomous MCP-based research server</li>
+                    <li>Research Intern at IIT Guwahati</li>
+                    <li>Grand Hackathon 2026 — GDG JSSATE-B</li>
+                  </ul>
+                  <div className={styles.fCardStatsRow}>
+                    <div className={styles.fMiniStat}>
+                      <span className={styles.fMiniNum}>8.7</span>
+                      <span className={styles.fMiniLbl}>CGPA</span>
+                    </div>
+                    <div className={styles.fMiniDivider} />
+                    <div className={styles.fMiniStat}>
+                      <span className={styles.fMiniNum}>2+</span>
+                      <span className={styles.fMiniLbl}>Internships</span>
+                    </div>
+                    <div className={styles.fMiniDivider} />
+                    <div className={styles.fMiniStat}>
+                      <span className={styles.fMiniNum}>5+</span>
+                      <span className={styles.fMiniLbl}>Projects</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className={styles.globeWrap}>
-              <Globe />
-            </div>
-          </SpotlightCard>
+          </motion.div>
+        </div>
+      </div>
 
-          {/* Card 5: Stats */}
-          <SpotlightCard className={`${styles.bentoCard} ${styles.cardStats}`} spotlightColor="rgba(245,158,11,0.1)">
-            <div className={styles.stat}>
-              <span className={styles.statNum}>
-                <NumberTicker value={8} suffix="+" className={styles.statNumInner} />
-              </span>
-              <span className={styles.statLabel}>AI / Backend Tools</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.stat}>
-              <span className={styles.statNum}>
-                <NumberTicker value={20} className={styles.statNumInner} />
-              </span>
-              <span className={styles.statLabel}>Years Old</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.stat}>
-              <span className={styles.statNum}>
-                <NumberTicker value={2} suffix="yr" className={styles.statNumInner} />
-              </span>
-              <span className={styles.statLabel}>Building</span>
-            </div>
-          </SpotlightCard>
-        </motion.div>
-
-        {/* ── Marquee ── */}
-        <div className={styles.marqueeWrap}>
-          <div className={styles.marquee}>
-            {["LangChain", "LangGraph", "RAG", "DeepSeek R1", "Java Spring Boot", "PostgreSQL", "pgvector", "Docker", "GCP", "FastAPI", "CrewAI", "Ollama", "Python", "Linux",
-              "LangChain", "LangGraph", "RAG", "DeepSeek R1", "Java Spring Boot", "PostgreSQL", "pgvector", "Docker", "GCP", "FastAPI", "CrewAI", "Ollama", "Python", "Linux"].map((s, i) => (
-              <span key={i} className={styles.marqueeItem}>
-                {s} <span className={styles.marqueeSep}>✦</span>
-              </span>
-            ))}
-          </div>
+      {/* ══════════════════════════════════════
+          MARQUEE
+      ══════════════════════════════════════ */}
+      <div className={styles.marqueeWrap}>
+        <div className={styles.marquee}>
+          {["LangChain", "LangGraph", "Agentic AI", "MCP Protocol", "SWARM", "FastAPI", "Python", "GCP", "Docker", "PostgreSQL", "Linux", "Tavily", "NetworkX", "Claude API", "RAG Pipelines", "IIT Guwahati", "DocTrue",
+            "LangChain", "LangGraph", "Agentic AI", "MCP Protocol", "SWARM", "FastAPI", "Python", "GCP", "Docker", "PostgreSQL", "Linux", "Tavily", "NetworkX", "Claude API", "RAG Pipelines", "IIT Guwahati", "DocTrue"
+          ].map((s, i) => (
+            <span key={i} className={styles.marqueeItem}>
+              {s} <span className={styles.marqueeSep}>波</span>
+            </span>
+          ))}
         </div>
       </div>
     </section>

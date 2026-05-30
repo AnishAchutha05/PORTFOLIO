@@ -1,9 +1,9 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { HiArrowUpRight } from "react-icons/hi2";
-import { FaGithub, FaLinkedin, FaSwimmer, FaGraduationCap, FaTrophy, FaRobot } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFlask, FaGraduationCap, FaTrophy, FaBriefcase } from "react-icons/fa";
 import ScrollReveal from "@/components/ScrollReveal";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { NumberTicker } from "@/components/NumberTicker";
@@ -11,55 +11,62 @@ import styles from "./page.module.css";
 
 const techGroups = [
   {
-    label: "Agentic AI & Logic",
-    color: "#a78bfa",
-    items: ["Python", "LangChain", "LangGraph", "CrewAI", "RAG", "Ollama", "DeepSeek R1", "FastAPI"],
+    label: "AI & Agents",
+    color: "#7ab8e0",
+    items: ["LangChain", "LangGraph", "Anthropic SDK", "MCP Protocol", "RAG Pipelines", "LLM Orchestration"],
   },
   {
-    label: "Enterprise Backend",
-    color: "#6db33f",
-    items: ["Java", "Spring Boot", "PostgreSQL", "pgvector", "Hibernate/JPA", "RabbitMQ", "Maven"],
+    label: "Backend",
+    color: "#3a7fc1",
+    items: ["FastAPI", "Spring Boot", "REST API Design", "SQLAlchemy", "PostgreSQL", "Redis"],
   },
   {
     label: "Cloud & DevOps",
-    color: "#4285f4",
-    items: ["GCP", "Docker", "Linux (Ubuntu)", "VPC Networking", "IAM", "Compute Engine"],
+    color: "#264e87",
+    items: ["Google Cloud Platform (GCP)", "Docker", "Linux", "Nginx", "Cloud Run"],
   },
   {
-    label: "CS Fundamentals",
-    color: "#f59e0b",
-    items: ["DSA (LeetCode Daily)", "DBMS", "OS Concurrency", "TCP/IP", "HNSW Vector Search"],
+    label: "Tools & DSA",
+    color: "#1a4a7a",
+    items: ["Git", "GitHub", "Postman", "VS Code", "Tavily API", "NetworkX", "LeetCode (Daily)"],
   },
 ];
 
 const timeline = [
   {
-    year: "2024 – Present",
-    title: "Architecting Local RAG Platform",
-    desc: "Building a locally-hosted Retrieval-Augmented Generation platform using DeepSeek R1 via Ollama, LangChain, LangGraph, and PostgreSQL with pgvector for HNSW vector search.",
-    icon: <FaRobot />,
-    color: "#a78bfa",
+    year: "Present",
+    title: "Research Intern · IIT Guwahati",
+    desc: "Conducting research at the Indian Institute of Technology Guwahati — applying AI/ML methods to research problems in a structured academic environment.",
+    icon: <FaFlask />,
+    color: "#7ab8e0",
   },
   {
-    year: "2023 – Present",
-    title: "VTU Engineering Student",
-    desc: "Second-year BE student at JSS Academy of Technical Education, Bangalore. Affiliated with Visvesvaraya Technological University.",
-    icon: <FaGraduationCap />,
-    color: "#4285f4",
+    year: "Present",
+    title: "AI Systems Intern · DocTrue",
+    desc: "Building and integrating intelligent AI features into healthcare document workflows and backend systems as AI Systems Intern.",
+    icon: <FaBriefcase />,
+    color: "#3a7fc1",
   },
   {
-    year: "2023",
-    title: "Event Organizer & Hackathon Lead",
-    desc: "Organizing technical events and hackathons at college, fostering a culture of innovation and collaborative engineering.",
+    year: "Sep 2025 – Present",
+    title: "Technical Co-Organiser · GDG JSSATE-B",
+    desc: "Co-organise technical workshops, hackathons, and developer events for 300+ members. Led team for Grand Hackathon 2026 — built ARIA, an MCP-based autonomous AI research system.",
     icon: <FaTrophy />,
-    color: "#f59e0b",
+    color: "#264e87",
   },
   {
-    year: "Ongoing",
-    title: "Competitive Swimmer",
-    desc: "Active competitive swimmer — discipline and endurance from the pool translate directly into focused engineering sessions.",
-    icon: <FaSwimmer />,
-    color: "#14b8a6",
+    year: "Feb – Mar 2025",
+    title: "Python Developer Intern · CODTECH IT Solutions",
+    desc: "Developed Python automation scripts and data processing pipelines. Contributed to backend modules and internal tooling.",
+    icon: <FaBriefcase />,
+    color: "#1a4a7a",
+  },
+  {
+    year: "Sep 2024 – Present",
+    title: "B.Tech, Computer Science · JSSATE Bangalore",
+    desc: "Second-year CS undergrad at JSS Academy of Technical Education (VTU). CGPA: 8.7. Coursework: DSA, OOP, OS, Computer Networks.",
+    icon: <FaGraduationCap />,
+    color: "#0e1628",
   },
 ];
 
@@ -67,22 +74,32 @@ export default function About() {
   return (
     <div className={styles.page}>
 
-      {/* ── HERO ── */}
+      {/* ── HERO with mountain bg ── */}
       <section className={styles.hero}>
+        {/* Ghibli mountain bg */}
+        <div className={styles.mountainBg}>
+          <Image src="/jp-mountain.png" alt="" fill className={styles.mountainImg} />
+          <div className={styles.mountainOverlay} />
+        </div>
+
+        {/* JP kanji watermark */}
+        <div className={styles.jpWatermark}>道</div>
+
         <div className={styles.heroInner}>
           <motion.div
             className={styles.heroLeft}
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="eyebrow">About Me</span>
             <h1 className={styles.heroTitle}>
-              I build things<br />
+              I build systems<br />
               <span className={styles.heroItalic}>that think.</span>
             </h1>
             <p className={styles.heroSub}>
-              AI Systems Architect · Backend Engineer · VTU Student
+              AI Systems Engineer · Research Intern @ IIT Guwahati<br />
+              AI Systems Intern @ DocTrue · VTU Student
             </p>
             <div className={styles.heroActions}>
               <a href="https://github.com/AnishAchutha05" target="_blank" rel="noopener noreferrer" className="btn-violet">
@@ -96,12 +113,12 @@ export default function About() {
 
           <motion.div
             className={styles.heroRight}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className={styles.photoCard}>
-              <Image src="/profile.jpg" alt="Anish Achutha" fill className={styles.photo} />
+              <Image src="/profile2.jpg" alt="Anish Achutha" fill className={styles.photo} />
               <div className={styles.photoBadge}>
                 <span className={styles.photoBadgeDot} />
                 Open to Work
@@ -111,15 +128,15 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── WHITE/BLACK BIO SECTION ── */}
+      {/* ── BIO SECTION ── */}
       <section className={styles.bioSection}>
         <div className={styles.bioInner}>
           <ScrollReveal>
             <div className={styles.bioHeader}>
               <span className={styles.bioEyebrow}>Who I Am</span>
               <h2 className={styles.bioTitle}>
-                Breaking down the<br />
-                <em>engineering stack.</em>
+                2nd-year CS undergrad<br />
+                <em>building production-grade AI.</em>
               </h2>
             </div>
           </ScrollReveal>
@@ -128,22 +145,19 @@ export default function About() {
             <ScrollReveal delay={0.1}>
               <div className={styles.bioText}>
                 <p>
-                  Hi, I&#39;m <strong>Anish Achutha</strong>. I am a 20-year-old, second-year engineering student at
-                  Visvesvaraya Technological University (VTU) with a relentless focus on building
-                  production-grade AI systems and enterprise cloud infrastructure.
+                  Hi, I&apos;m <strong>Anish Achutha</strong> — a 2nd-year Computer Science undergraduate at
+                  JSSATE Bangalore (VTU) with a CGPA of 8.7. I build production-grade AI systems at the
+                  intersection of backend engineering and agentic AI — designing systems where LLMs act as
+                  autonomous agents backed by scalable APIs, vector stores, and real-time pipelines.
                 </p>
                 <p>
-                  While many developers focus purely on the frontend, my passion lies in the <strong>&#34;raw iron&#34;</strong> of
-                  software engineering. I specialize in architecting autonomous Agentic AI loops, building
-                  strictly-typed, highly concurrent backend systems, and deploying robust microservices.
-                  I don&#39;t just want to know how an application looks; I want to control how it
-                  <em> thinks</em>, how it <em>stores data securely</em>, and how it <em>scales globally</em> without failing.
+                  Currently doing a <strong>Research Internship at IIT Guwahati</strong> and a{" "}
+                  <strong>Tech Internship at DocTrue as an AI Systems Intern</strong>. Co-organiser at{" "}
+                  GDG JSSATE-B, where I run workshops, hackathons, and developer events for 300+ members.
                 </p>
                 <p>
-                  Beyond the terminal, I am a <strong>competitive swimmer</strong> and actively contribute to my college
-                  community by organizing technical events and hackathons. I am continuously pushing my
-                  engineering boundaries, with long-term plans to pursue a <strong>Master&#39;s degree in AI Automation
-                  and Cloud Engineering in Germany</strong>.
+                  GCP certified via the Google Cloud Arcade programme. Consistent LeetCode practitioner —
+                  working through arrays, graphs, dynamic programming, and trees in Python daily.
                 </p>
               </div>
             </ScrollReveal>
@@ -152,23 +166,20 @@ export default function About() {
               <div className={styles.currentFocus}>
                 <div className={styles.focusHeader}>
                   <span className={styles.focusPulse} />
-                  <span className={styles.focusLabel}>Current Engineering Focus</span>
+                  <span className={styles.focusLabel}>Currently</span>
                 </div>
-                <h3 className={styles.focusTitle}>Building a Local RAG Platform</h3>
+                <h3 className={styles.focusTitle}>Dual Internships + GDG</h3>
                 <p className={styles.focusText}>
-                  I am currently architecting a locally-hosted, Retrieval-Augmented Generation (RAG)
-                  platform driven by a decoupled microservices architecture.
+                  Research Intern at <strong>IIT Guwahati</strong> — applying AI/ML to research problems.
                 </p>
                 <p className={styles.focusText}>
-                  Rather than relying on third-party APIs, I build the &#34;brain&#34; using local LLMs
-                  (DeepSeek R1 via Ollama) and orchestrate self-correcting, multi-agent loops using
-                  Python, LangChain, LangGraph, and CrewAI. Memory and financial data are managed with
-                  enterprise-grade <strong>PostgreSQL + pgvector</strong> for instant HNSW vector searches.
-                  I build secure, multi-threaded backend bridges using <strong>Java Spring Boot</strong> and
-                  <strong> Python FastAPI</strong>, containerizing with Docker on GCP.
+                  AI Systems Intern at <strong>DocTrue</strong> — building intelligent AI pipelines for healthcare.
+                </p>
+                <p className={styles.focusText}>
+                  Technical Co-Organiser at <strong>GDG JSSATE-B</strong> — driving developer culture.
                 </p>
                 <div className={styles.focusTech}>
-                  {["DeepSeek R1", "Ollama", "LangGraph", "pgvector", "Spring Boot", "Docker", "GCP"].map(t => (
+                  {["LangChain", "MCP Protocol", "FastAPI", "GCP", "Agentic AI", "Python"].map(t => (
                     <span key={t} className={styles.focusPill}>{t}</span>
                   ))}
                 </div>
@@ -176,24 +187,23 @@ export default function About() {
             </ScrollReveal>
           </div>
 
-          {/* Stats row */}
           <ScrollReveal delay={0.1}>
             <div className={styles.statsRow}>
               <div className={styles.statBox}>
-                <span className={styles.statNum}><NumberTicker value={4} suffix="+" className={styles.statNumVal} /></span>
-                <span className={styles.statLbl}>AI Frameworks</span>
+                <span className={styles.statNum}><NumberTicker value={8} suffix=".7" className={styles.statNumVal} /></span>
+                <span className={styles.statLbl}>CGPA · VTU</span>
+              </div>
+              <div className={styles.statBox}>
+                <span className={styles.statNum}><NumberTicker value={2} suffix="+" className={styles.statNumVal} /></span>
+                <span className={styles.statLbl}>Internships</span>
+              </div>
+              <div className={styles.statBox}>
+                <span className={styles.statNum}><NumberTicker value={5} suffix="+" className={styles.statNumVal} /></span>
+                <span className={styles.statLbl}>Projects Built</span>
               </div>
               <div className={styles.statBox}>
                 <span className={styles.statNum}><NumberTicker value={2} suffix="yr" className={styles.statNumVal} /></span>
-                <span className={styles.statLbl}>Engineering</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statNum}><NumberTicker value={365} className={styles.statNumVal} /></span>
-                <span className={styles.statLbl}>LeetCode Streak</span>
-              </div>
-              <div className={styles.statBox}>
-                <span className={styles.statNum}><NumberTicker value={100} suffix="%" className={styles.statNumVal} /></span>
-                <span className={styles.statLbl}>Backend-First</span>
+                <span className={styles.statLbl}>Building AI</span>
               </div>
             </div>
           </ScrollReveal>
@@ -202,18 +212,20 @@ export default function About() {
 
       {/* ── TECH ARSENAL ── */}
       <section className={styles.techSection}>
+        {/* Coder image as decorative bg */}
+        <div className={styles.coderBg}>
+          <Image src="/jp-coder.png" alt="" fill className={styles.coderImg} />
+          <div className={styles.coderOverlay} />
+        </div>
         <div className={styles.techInner}>
           <ScrollReveal>
             <h2 className={styles.techTitle}>Technical Arsenal</h2>
-            <p className={styles.techSub}>Structured for technical recruiters and engineering managers</p>
+            <p className={styles.techSub}>From the resume — what I actually use and ship with</p>
           </ScrollReveal>
           <div className={styles.techGrid}>
             {techGroups.map((group, i) => (
-              <ScrollReveal key={group.label} delay={i * 0.1}>
-                <SpotlightCard
-                  className={styles.techCard}
-                  spotlightColor={`${group.color}18`}
-                >
+              <ScrollReveal key={group.label} delay={i * 0.09}>
+                <SpotlightCard className={styles.techCard} spotlightColor={`${group.color}18`}>
                   <div className={styles.techCardLine} style={{ background: group.color }} />
                   <span className={styles.techCardLabel}>{group.label}</span>
                   <div className={styles.techPills}>
@@ -232,11 +244,14 @@ export default function About() {
       <section className={styles.timelineSection}>
         <div className={styles.timelineInner}>
           <ScrollReveal>
-            <h2 className={styles.timelineTitle}>Journey</h2>
+            <div className={styles.timelineHeader}>
+              <div className={styles.jpTimelineChar}>歴</div>
+              <h2 className={styles.timelineTitle}>Experience &amp; Education</h2>
+            </div>
           </ScrollReveal>
           <div className={styles.timeline}>
             {timeline.map((item, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
+              <ScrollReveal key={i} delay={i * 0.09}>
                 <div className={styles.timelineItem}>
                   <div className={styles.timelineIcon} style={{ color: item.color, borderColor: `${item.color}40`, background: `${item.color}12` }}>
                     {item.icon}
@@ -253,12 +268,17 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
+      {/* ── CTA with Icarus bg ── */}
       <ScrollReveal>
         <section className={styles.cta}>
+          <div className={styles.icaurusBg}>
+            <Image src="/jp-icarus.png" alt="" fill className={styles.icarusImg} />
+            <div className={styles.icarusOverlay} />
+          </div>
           <div className={styles.ctaInner}>
+            <div className={styles.ctaJpChar}>縁</div>
             <h2 className={styles.ctaTitle}>
-              Let&#39;s build<br />
+              Let&apos;s build<br />
               <span className={styles.ctaItalic}>something real.</span>
             </h2>
             <p className={styles.ctaDesc}>Open to internships, research collaborations, and backend/AI engineering roles.</p>

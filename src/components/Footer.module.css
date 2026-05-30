@@ -1,10 +1,10 @@
 .footer {
   position: relative;
   z-index: 2;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  border-top: 1px solid rgba(90,160,220,0.08);
   padding: 2.5rem 2rem;
   margin-top: 2rem;
-  background: rgba(8,8,12,0.8);
+  background: rgba(7,9,26,0.9);
   backdrop-filter: blur(10px);
 }
 
@@ -33,19 +33,21 @@
 .brandMark {
   width: 30px;
   height: 30px;
-  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  background: linear-gradient(135deg, var(--blue-700), var(--blue-400));
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
   font-weight: 800;
+  font-family: var(--font-display);
   color: white;
 }
 
 .brandText {
   font-size: 0.9rem;
   font-weight: 700;
+  font-family: var(--font-display);
   color: var(--text-secondary);
 }
 
@@ -56,16 +58,17 @@
 
 .navLink {
   padding: 6px 14px;
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   color: var(--text-muted);
   border-radius: 100px;
   transition: color 0.2s ease, background 0.2s ease;
   font-weight: 500;
+  font-family: var(--font-display);
 }
 
 .navLink:hover {
   color: var(--text);
-  background: rgba(255,255,255,0.05);
+  background: rgba(26,95,168,0.12);
 }
 
 .socials {
@@ -80,16 +83,16 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(90,160,220,0.12);
+  background: rgba(255,255,255,0.03);
   color: var(--text-muted);
   font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .social:hover {
-  background: var(--violet);
-  border-color: var(--violet);
+  background: var(--blue-600);
+  border-color: var(--blue-600);
   color: white;
   transform: translateY(-2px);
 }
@@ -99,7 +102,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(90,160,220,0.07);
   flex-wrap: wrap;
   gap: 0.5rem;
 }

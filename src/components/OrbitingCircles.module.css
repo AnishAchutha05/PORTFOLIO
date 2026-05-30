@@ -8,9 +8,9 @@
 
 .pathCircle {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
+  stroke: rgba(91, 175, 214, 0.12);
   stroke-width: 1;
-  stroke-dasharray: 4 4;
+  stroke-dasharray: 3 5;
 }
 
 .orbit {
